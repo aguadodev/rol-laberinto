@@ -1,6 +1,7 @@
 
-package rol;
+package entidad;
 
+import entidad.Personaje;
 import java.util.Comparator;
 
 

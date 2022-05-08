@@ -1,8 +1,11 @@
 
-package rol;
+package entidad;
+
+import entidad.Personaje;
 
 
 public class Monstruo {
+    
     String nombre;
     int ataque;
     int defensa;
@@ -28,6 +31,119 @@ public class Monstruo {
     }
     
     // MÉTODOS PÚBLICOS    
+    
+    /**
+     * Genera y devuelve un monstruo aleatorio
+     * @return
+     */
+    public static Monstruo generarAleatorio() {
+        double numero = Math.random() * 100;
+        Monstruo m;
+        if (numero < 40) {
+            m = new Orco();
+        } else if (numero < 70) {
+            m = new Aranha();
+        } else if (numero < 90) {
+            m = new Troll();
+        } else {
+            m = new Dragon();
+        }
+        return m;
+    }    
+    
+    /**
+     * Genera un código HTML con las características del personaje
+     */
+    public String mostrarHTML(){
+        String clase = (nombre != null)?nombre:(getClass().getSimpleName());
+        return "<html>"
+                + "<div>"
+                + "MONSTRUO<br>"
+                + "=========<br>"
+                + "Nombre/Clase: " + clase + "<br>"
+                + "Ataque: " + ataque + "<br>"
+                + "Defensa: " + defensa + "<br>"
+                + "Velocidad: " + velocidad + "<br>"
+                + "Puntos de Vida: " + puntosVida + "<br>"
+                + "</div>"
+                + "</html>";       
+    }           
+    
+    public boolean estaVivo(){
+        return puntosVida >= 0;
+    }
+ 
+    public boolean perderVida(int puntos){
+        puntosVida -= puntos;
+        return puntosVida < 0;
+    }
+    
+    // REDEFINICIÓN DE MÉTODOS
+    @Override
+    public String toString() {
+        String cad = "";
+        if (nombre != null) cad += nombre + "-";
+        cad += this.getClass().getSimpleName() + " (PV=" + puntosVida + ") ";
+        return cad;
+    }
+    
+    
+    // OTROS MÉTODOS
+    protected static int random100(){
+        return (int)(Math.random() * 100 + 1);
+    }
+    
+    // OTROS MÉTODOS
+    protected static int randomRango(int inicio, int fin){
+        return (int)(Math.random() * (fin - inicio + 1) + inicio);
+    }    
+
+    
+    
+    
+    
+    
+    // GETTERS
+
+    public String getNombre() {
+        if (null == nombre || nombre.equals("")){
+            return getClass().getSimpleName();
+        }
+        return nombre;
+    }
+
+    public int getAtaque() {
+        return ataque;
+    }
+
+    public int getDefensa() {
+        return defensa;
+    }
+
+    public int getVelocidad() {
+        return velocidad;
+    }
+
+    public int getPuntosVida() {
+        return puntosVida;
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    // MÉTODOS VERSIONES ANTERIORES, CON SALIDA POR CONSOLA
+    /**
+     * Muestra las características del monstruo por consola
+     */
     public void mostrar() {
         System.out.println("MONSTRUO");
         System.out.println("=======");        
@@ -40,15 +156,10 @@ public class Monstruo {
         System.out.println("");
     }    
     
-    public boolean estaVivo(){
-        return puntosVida >= 0;
-    }
- 
-    public boolean perderVida(int puntos){
-        puntosVida -= puntos;
-        return puntosVida < 0;
-    }
-
+    /**
+     * Ataca a un personaje y lo muestra por consola
+     * @param p 
+     */
     public void atacar(Personaje p){
         System.out.println(nombre + "("+ puntosVida +") ataca a " + 
                 p.nombre + "(" + p.puntosVida + "): ");
@@ -77,25 +188,7 @@ public class Monstruo {
         }                
     }   
 
-    
-    // REDEFINICIÓN DE MÉTODOS
-    @Override
-    public String toString() {
-        String cad = "";
-        if (nombre != null) cad += nombre + "-";
-        cad += this.getClass().getSimpleName() + " (PV=" + puntosVida + ") ";
-        return cad;
-    }
-    
-    
-    // OTROS MÉTODOS
-    protected static int random100(){
-        return (int)(Math.random() * 100 + 1);
-    }
-    
-    // OTROS MÉTODOS
-    protected static int randomRango(int inicio, int fin){
-        return (int)(Math.random() * (fin - inicio + 1) + inicio);
-    }    
+
+
     
 }

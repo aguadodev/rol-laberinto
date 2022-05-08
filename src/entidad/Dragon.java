@@ -1,5 +1,5 @@
 
-package rol;
+package entidad;
 
 
 public class Dragon extends Monstruo {
